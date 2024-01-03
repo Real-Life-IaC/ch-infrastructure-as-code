@@ -1,0 +1,66 @@
+Resources:
+  MyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-bucket-56e143c0
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+      LifecycleConfiguration:
+        Rules:
+          - Status: Enabled
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 7
+            Transitions:
+              - StorageClass: INTELLIGENT_TIERING
+                TransitionInDays: 60
+            NoncurrentVersionExpiration:
+              NoncurrentDays: 30
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      VersioningConfiguration:
+        Status: Enabled
+
+  MyLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: my-bucket-role-56e143c0
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+
+  MyLambdaPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: my-bucket-policy-56e143c0
+      Roles:
+        - Ref: MyLambdaRole
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+            Resource:
+              - Fn::GetAtt:
+                  - MyBucket
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - MyBucket
+                        - Arn
+                    - "/*"
