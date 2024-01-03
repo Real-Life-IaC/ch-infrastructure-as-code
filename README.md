@@ -1,20 +1,18 @@
-# Infrastructure as Code
+# Chapter: Infrastructure as Code
 
-## How to run the code
-
-Go to the `iac` directory and run the following command to create the virtual environment:
+## Create the virtual environment and install dependencies
 
 ```bash
 make init
 ```
 
-To activate the virtual environment:
+## Activate the virtual environment
 
 ```bash
 source .venv/bin/activate
 ```
 
-Find more information about the available Make recipes with:
+## Help with Make recipes
 
 ```bash
 make help
