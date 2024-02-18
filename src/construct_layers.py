@@ -1,6 +1,7 @@
 import aws_cdk as cdk
 
 from aws_cdk import aws_s3 as s3
+from aws_cdk import aws_iam as iam
 from aws_cdk import aws_s3_deployment as s3_deployment
 from constructs import Construct
 
@@ -31,12 +32,20 @@ class ConstructLayersStack(cdk.Stack):
             ),
         )
 
+        role = iam.Role(
+            scope=self,
+            id="L1Role",
+            assumed_by=iam.ServicePrincipal("lambda.amazonaws.com"),
+        )
+
         # Layer 2 (L2) Construct
         l2_bucket = s3.Bucket(
             scope=self,
             id="L2Bucket",
             encryption=s3.BucketEncryption.S3_MANAGED,
         )
+
+        l2_bucket.grant_read_write(role)
 
         # Layer 3 (L3) Construct
         s3_deployment.BucketDeployment(
