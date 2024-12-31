@@ -1,7 +1,7 @@
 import aws_cdk as cdk
 
-from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_iam as iam
+from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_s3_deployment as s3_deployment
 from constructs import Construct
 

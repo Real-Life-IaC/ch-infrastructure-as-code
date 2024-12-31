@@ -18,7 +18,6 @@ class MyStack(cdk.Stack):
         s3.Bucket(
             scope=self,
             id="MyBucket",
-            bucket_name="my-bucket-56e143c0",
             removal_policy=cdk.RemovalPolicy.DESTROY,
             auto_delete_objects=True,
         )

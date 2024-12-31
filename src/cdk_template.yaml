@@ -1,7 +1,5 @@
 Resources:
   mybucket15D133BF:
     Type: AWS::S3::Bucket
-    Properties:
-      BucketName: my-bucket-56e143c0
     UpdateReplacePolicy: Retain
     DeletionPolicy: Retain

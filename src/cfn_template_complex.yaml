@@ -2,7 +2,6 @@ Resources:
   MyBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: my-bucket-56e143c0
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
@@ -31,7 +30,7 @@ Resources:
   MyLambdaRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: my-bucket-role-56e143c0
+      RoleName: my-bucket-role
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -45,7 +44,7 @@ Resources:
   MyLambdaPolicy:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: my-bucket-policy-56e143c0
+      PolicyName: my-bucket-policy
       Roles:
         - Ref: MyLambdaRole
       PolicyDocument:
